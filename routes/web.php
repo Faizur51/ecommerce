@@ -1,6 +1,9 @@
 <?php
 
 
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\UserRoleController;
 use App\Http\Controllers\Frontend\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[SiteController::class,'index'])->name('index');
 
 
-Route::get('admin/dashboard', function () {
+/*Route::get('admin/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');*/
+
+Route::prefix('admin')->middleware(['auth','isActive'])->name('admin.')->group(function (){
+
+Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+Route::resource('user',UserController::class)->middleware('superAdmin');
+Route::resource('userrole',UserRoleController::class)->middleware('superAdmin');
+
+Route::resource('brand',UserRoleController::class)->middleware('admin');
+
+});
 
 require __DIR__.'/auth.php';

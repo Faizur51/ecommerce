@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use App\Http\Controllers\Controller;
+use App\Models\UserRole;
+use Illuminate\Http\Request;
+
+class UserRoleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $userroles=UserRole::all();
+
+        return view('backend.userrole.manage',compact('userroles'));
+    }
+
+
+    public function create()
+    {
+
+        return view('backend.userrole.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        return "ok";
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\UserRole  $userRole
+     * @return \Illuminate\Http\Response
+     */
+    public function show(UserRole $userRole)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\UserRole  $userRole
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(UserRole $userRole)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\UserRole  $userRole
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, UserRole $userRole)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\UserRole  $userRole
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $userrole=UserRole::findOrFail($id);
+
+        $userrole->delete();
+        return redirect()->back();
+    }
+}
